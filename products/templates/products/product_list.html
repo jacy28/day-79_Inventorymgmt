@@ -1,0 +1,45 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-black">Products</h1>
+        <a href="{% url 'product_add' %}" class="btn btn-success">➕ Add Product</a>
+    </div>
+
+    {% if products %}
+        <ul class="list-group">
+            {% for product in products %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <a href="{% url 'product_detail' product.pk %}" class="fw-bold text-decoration-none">
+                            {{ product.name }}
+                        </a>
+                    </div>
+                    <div>
+                        <a href="{% url 'product_update' product.pk %}" class="btn btn-sm btn-warning">✏ Edit</a>
+                        <a href="{% url 'product_delete' product.pk %}" class="btn btn-sm btn-danger">🗑 Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="alert alert-info mt-4" role="alert">
+            No products found. Click "Add Product" to create one.
+        </div>
+    {% endif %}
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
